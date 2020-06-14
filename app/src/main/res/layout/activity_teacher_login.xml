@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TeacherLogin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Enter Your Mail.."
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/edit_text_border" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Enter Password"
+            android:textSize="22dp"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_border"/>
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textSize="18dp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:background="@drawable/log_button_style"
+            android:text="Log In"/>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

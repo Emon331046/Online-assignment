@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AssignmentUploadActivity">
+
+
+    <EditText
+        android:id="@+id/edit_text_file_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="Enter assignment no." />
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/progress_bar"
+        android:layout_below="@id/edit_text_file_name"
+        android:layout_marginTop="16dp" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linear_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp" />
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/button_choose_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/log_button_style"
+            android:text="Choose file" />
+        <Button
+            android:id="@+id/button_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:background="@drawable/custom_ripple"
+
+            android:text="Upload" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

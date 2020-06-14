@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">online Assignment</string>
+    <string name="user_type">USER_TYPE</string>
+    <string name="teacher_type">TEACHER</string>
+    <string name="student_type">STUDENT</string>
+    <string name="reg">USER_REG</string>
+
+    <string name="user_name">USER_NAME</string>
+
+</resources>
