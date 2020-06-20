@@ -39,7 +39,7 @@ public class StudentLogin extends AppCompatActivity {
                     editor.putString(getString(R.string.reg),reg);
                     editor.commit();
                     Toast.makeText(getApplicationContext(),"student "+reg,Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),AssignmentActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                 }
             }

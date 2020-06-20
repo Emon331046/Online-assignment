@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#020202"
-    tools:context=".AssignmentActivity">
-
+    tools:context=".TestActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:background="#D1CECE"
@@ -15,13 +14,13 @@
         android:paddingBottom="50dp"/>
 
     <Button
-        android:id="@+id/new_assign"
+        android:id="@+id/new_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_alignBottom="@id/recycler_view"
         android:background="@drawable/log_button_style"
-        android:text="New Assignment"
+        android:text="Add Test"
 
         android:textAllCaps="false"
         android:textSize="18dp" />

@@ -10,39 +10,56 @@
     tools:context=".StartActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#36C47D"
-            android:textStyle="bold"
-            android:layout_margin="10dp"
+            android:text="Physics is the father of science "
+            android:textAlignment="center"
+            android:textColor="#DFEC6E"
             android:textSize="40dp"
-            android:text="Online Assignment" />
+            android:textStyle="bold|italic" />
 
-        <Button
-            android:id="@+id/teacher"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/log_button_style"
-            android:text="Teacher" />
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/student"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/log_button_style"
-            android:text="Student" />
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Online Assignment"
+                android:textAlignment="center"
+                android:textColor="#BBBFBB"
+                android:textSize="30dp"
+                android:textStyle="bold|italic" />
+
+            <Button
+                android:id="@+id/teacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/log_button_style"
+                android:text="Teacher" />
+
+            <Button
+                android:id="@+id/student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/log_button_style"
+                android:text="Student" />
+        </LinearLayout>
     </LinearLayout>
 
 

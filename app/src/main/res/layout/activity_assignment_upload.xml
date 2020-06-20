@@ -4,14 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#020202"
     tools:context=".AssignmentUploadActivity">
 
 
     <EditText
         android:id="@+id/edit_text_file_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:background="@drawable/edit_text_border"
         android:hint="Enter assignment no." />
     <ImageView
         android:id="@+id/image_view"

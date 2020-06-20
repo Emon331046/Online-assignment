@@ -55,33 +55,48 @@ public class SingleImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences sharedPref = getSharedPreferences("MY_DATA",getApplicationContext().MODE_PRIVATE);
+                if (NetConnectionCheck.isConnected(getApplicationContext())){
 
-                String userType = sharedPref.getString(getString(R.string.user_type),null);
+                    SharedPreferences sharedPref = getSharedPreferences("MY_DATA",getApplicationContext().MODE_PRIVATE);
 
-
-                //  Toast.makeText(getApplicationContext(),"student "+userType,Toast.LENGTH_SHORT).show();
-
-                if (userType !=null &&  userType.equals("student")){
-
-                    Toast.makeText(getApplicationContext(),"student",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),SubmissionActivity.class);
+                    String userType = sharedPref.getString(getString(R.string.user_type),null);
 
 
-                    intent.putExtra("currentImageName",currentImageName);
-                    startActivity(intent);
+                    //  Toast.makeText(getApplicationContext(),"student "+userType,Toast.LENGTH_SHORT).show();
+
+                    if (userType !=null &&  userType.equals("student")){
+
+                        Toast.makeText(getApplicationContext(),"student",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(),SubmissionActivity.class);
+
+
+                        intent.putExtra("currentImageName",currentImageName);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(),"you are not a student",Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getApplicationContext(),"you are not a student",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SingleImageActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
 
         showSubmission.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SingleImageActivity.this, ShowSubmissionsActivity.class);
-                intent.putExtra("currentImageName",currentImageName);
-                startActivity(intent);
+                if (NetConnectionCheck.isConnected(getApplicationContext())){
+
+
+                    Intent intent = new Intent(SingleImageActivity.this, ShowSubmissionsActivity.class);
+                    intent.putExtra("currentImageName",currentImageName);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SingleImageActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 

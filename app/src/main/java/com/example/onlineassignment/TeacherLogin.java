@@ -40,7 +40,7 @@ public class TeacherLogin extends AppCompatActivity {
                     editor.putString(getString(R.string.reg),null);
                     editor.commit();
 
-                    Intent intent = new Intent(getApplicationContext(),AssignmentActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                 }
             }

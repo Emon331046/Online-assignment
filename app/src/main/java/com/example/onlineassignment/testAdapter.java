@@ -1,6 +1,5 @@
 package com.example.onlineassignment;
 
-
 import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -13,46 +12,38 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+public class testAdapter extends RecyclerView.Adapter<testAdapter.TestViewHolder> {
     private Context mContext;
-    private List<Upload> mUploads;
+    private List<TestModel> testModels;
     private OnItemClickListener mListener;
-    public ImageAdapter(Context context, List<Upload> uploads) {
+    public testAdapter(Context context, List<TestModel> tests) {
         mContext = context;
-        mUploads = uploads;
+        testModels = tests;
     }
     @Override
-    public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.image_item, parent, false);
-        return new ImageViewHolder(v);
+    public TestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.test_item, parent, false);
+        return new TestViewHolder(v);
     }
     @Override
-    public void onBindViewHolder(ImageViewHolder holder, int position) {
-        Upload uploadCurrent = mUploads.get(position);
-        holder.textViewName.setText(uploadCurrent.getName());
-        Picasso.with(mContext)
-                .load(uploadCurrent.getImageUrl())
-                .placeholder(R.mipmap.ic_launcher)
-                .fit()
-                .centerCrop()
-                .into(holder.imageView);
+    public void onBindViewHolder(TestViewHolder holder, int position) {
+        TestModel testModel = testModels.get(position);
+        holder.textViewName.setText(testModel.getTestName());
+
     }
     @Override
     public int getItemCount() {
-        return mUploads.size();
+        return testModels.size();
     }
-    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+    public class TestViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
             View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
         public TextView textViewName;
         public ImageView imageView;
-        public ImageViewHolder(View itemView) {
+        public TestViewHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.text_view_name);
-            imageView = itemView.findViewById(R.id.image_view_upload);
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
         }
@@ -61,16 +52,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             if (mListener != null) {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    mListener.onItemClick(mUploads.get(position).getImageUrl(),mUploads.get(position).getName());
+                    mListener.onItemClick(testModels.get(position).getTestLink());
                 }
             }
         }
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select Action");
-            //MenuItem doWhatever = menu.add(Menu.NONE, 1, 1, "Do whatever");
             MenuItem delete = menu.add(Menu.NONE, 1, 1, "Delete");
-            //doWhatever.setOnMenuItemClickListener(this);
             delete.setOnMenuItemClickListener(this);
         }
         @Override
@@ -89,8 +78,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
     }
     public interface OnItemClickListener {
-        void onItemClick(String currentImageUrl,String currentImageName);
-        //void onWhatEverClick(int position);
+        void onItemClick(String currentImageUrl);
+      //  void onWhatEverClick(int position);
         void onDeleteClick(int position);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {

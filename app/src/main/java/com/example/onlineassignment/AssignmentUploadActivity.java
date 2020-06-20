@@ -70,12 +70,26 @@ public class AssignmentUploadActivity extends AppCompatActivity {
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                if (mEditTextFileName.getText().toString().trim().isEmpty()){
+                    Toast.makeText(AssignmentUploadActivity.this, " assignment no. field is empty", Toast.LENGTH_SHORT).show();
+
+                } else if (mUploadTask != null && mUploadTask.isInProgress()) {
                     Toast.makeText(AssignmentUploadActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    loadingDialog.startLoading();
-                    uploadFile();
+                    if (NetConnectionCheck.isConnected(getApplicationContext())){
+
+                        if (AssignmentActivity.assignMap.get("assignment-"+mEditTextFileName.getText().toString().trim().toLowerCase())==null){
+                            loadingDialog.startLoading();
+                            uploadFile();
+                        } else {
+
+                            Toast.makeText(AssignmentUploadActivity.this, "assignment name already exists " + "assignment-"+mEditTextFileName.getText().toString().trim().toLowerCase(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(AssignmentUploadActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -140,8 +154,6 @@ public class AssignmentUploadActivity extends AppCompatActivity {
                     {
                         Uri downloadUri = task.getResult();
 
-                        Log.e("TAG", "then: " + downloadUri.toString());
-
 
                         Upload upload = new Upload("assignment-"+mEditTextFileName.getText().toString().trim(),
                                 downloadUri.toString());
@@ -149,9 +161,14 @@ public class AssignmentUploadActivity extends AppCompatActivity {
                         mDatabaseRef.push().setValue(upload);
                         Toast.makeText(AssignmentUploadActivity.this, " assignment upload done !! ", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(AssignmentUploadActivity.this, AssignmentActivity.class);
+                        if (NetConnectionCheck.isConnected(getApplicationContext())){
 
-                        startActivity(intent);
+                            Intent intent = new Intent(AssignmentUploadActivity.this, AssignmentActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(AssignmentUploadActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        }
+
                     } else
                     {
                         Toast.makeText(AssignmentUploadActivity.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

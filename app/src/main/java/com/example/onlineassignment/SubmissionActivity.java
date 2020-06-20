@@ -85,8 +85,14 @@ public class SubmissionActivity extends AppCompatActivity {
                     Toast.makeText(SubmissionActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    loadingDialog.startLoading();
-                    uploadFile();
+                    if (NetConnectionCheck.isConnected(getApplicationContext())){
+
+
+                        loadingDialog.startLoading();
+                        uploadFile();
+                    } else {
+                        Toast.makeText(SubmissionActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -120,10 +126,7 @@ public class SubmissionActivity extends AppCompatActivity {
     }
 
 
-    private void openImagesActivity() {
-//        Intent intent = new Intent(this, ImagesActivity.class);
-//        startActivity(intent);
-    }
+
 
     private void uploadFile(){
         if (mImageUri != null) {

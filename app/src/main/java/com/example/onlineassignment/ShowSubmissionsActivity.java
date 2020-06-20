@@ -21,7 +21,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShowSubmissionsActivity extends AppCompatActivity implements SubmissionAdapter.OnItemClickListener{
 
@@ -32,7 +34,8 @@ public class ShowSubmissionsActivity extends AppCompatActivity implements Submis
     private DatabaseReference mDatabaseRef;
     private ValueEventListener mDBListener;
     private List<Upload> mUploads;
-    private Button newAssignButton;
+
+    static public Map<String,String> submissionMap = new HashMap<String, String>();;
 
 
     private String assignmentName=null;
@@ -42,50 +45,57 @@ public class ShowSubmissionsActivity extends AppCompatActivity implements Submis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_submissions);
 
-        final LoadingDialog loadingDialog = new LoadingDialog(ShowSubmissionsActivity.this);
-        loadingDialog.startLoading();
+        if (NetConnectionCheck.isConnected(getApplicationContext())){
+            final LoadingDialog loadingDialog = new LoadingDialog(ShowSubmissionsActivity.this);
+            loadingDialog.startLoading();
 
-        // create the get Intent object
-        Intent intent = getIntent();
+            // create the get Intent object
+            Intent intent = getIntent();
 
-        // receive the value by getStringExtra() method
-        // and key must be same which is send by first activity
+            // receive the value by getStringExtra() method
+            // and key must be same which is send by first activity
 
-        final String currentImageName = intent.getStringExtra("currentImageName");
-        assignmentName = currentImageName;
+            final String currentImageName = intent.getStringExtra("currentImageName");
+            assignmentName = currentImageName;
 
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-      //  mProgressCircle = findViewById(R.id.progress_circle);
-        mUploads = new ArrayList<>();
-        mAdapter = new SubmissionAdapter(ShowSubmissionsActivity.this, mUploads);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener( ShowSubmissionsActivity.this);
-        mStorage = FirebaseStorage.getInstance();
+            mRecyclerView = findViewById(R.id.recycler_view);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            //  mProgressCircle = findViewById(R.id.progress_circle);
+            mUploads = new ArrayList<>();
+            mAdapter = new SubmissionAdapter(ShowSubmissionsActivity.this, mUploads);
+            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.setOnItemClickListener( ShowSubmissionsActivity.this);
+            mStorage = FirebaseStorage.getInstance();
 
-        Toast.makeText(getApplicationContext(),assignmentName,Toast.LENGTH_SHORT).show();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("submissions/"+assignmentName);
-        mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mUploads.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Upload upload = postSnapshot.getValue(Upload.class);
-                    upload.setKey(postSnapshot.getKey());
-                    mUploads.add(upload);
+            Toast.makeText(getApplicationContext(),assignmentName,Toast.LENGTH_SHORT).show();
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("submissions/"+assignmentName);
+            mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    mUploads.clear();
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        Upload upload = postSnapshot.getValue(Upload.class);
+                        upload.setKey(postSnapshot.getKey());
+                        mUploads.add(upload);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                    // mProgressCircle.setVisibility(View.INVISIBLE);
+                    loadingDialog.dismissLoading();
                 }
-                mAdapter.notifyDataSetChanged();
-               // mProgressCircle.setVisibility(View.INVISIBLE);
-                loadingDialog.dismissLoading();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ShowSubmissionsActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-               // mProgressCircle.setVisibility(View.INVISIBLE);
-                loadingDialog.dismissLoading();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(ShowSubmissionsActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    // mProgressCircle.setVisibility(View.INVISIBLE);
+                    loadingDialog.dismissLoading();
+                }
+            });
+        } else {
+            Toast.makeText(ShowSubmissionsActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     @Override
